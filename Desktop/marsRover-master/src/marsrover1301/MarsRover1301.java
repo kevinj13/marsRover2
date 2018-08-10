@@ -20,13 +20,15 @@ public class MarsRover1301 {
 
     static int maximumY;
 
-    static int positionX;
+    static int positionX = 0;
 
-    static int positionY;
+    static int positionY = 0;
 
-    static String compassPoint;
+    static String compassPoint = "N";
 
     static String roverInstructions;
+
+    static char[] roverInstructionsArray;
 
     /**
      *
@@ -37,56 +39,138 @@ public class MarsRover1301 {
 
         // TODO code application logic here
         System.out.println("LET'S ESTABLISH THE SIZE OF THE PLATEAU:");
-        Scanner maximumXInput = new Scanner(System.in);
 
-        System.out.println("Enter the maximum X Axis");
-        maximumX = Integer.parseInt(maximumXInput.next());
+        while (true) {
+            Scanner maximumXInput = new Scanner(System.in);
+            System.out.println("Enter the maximum X Axis");
+            try {
 
-        Scanner maximumYInput = new Scanner(System.in);
-        System.out.println("Enter the maximum Y Axis");
+                maximumX = Integer.parseInt(maximumXInput.next());
+                if (maximumX == 0) {
+                    System.out.println("It cannot be 0");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("input is not an int value");
+            }
 
-        maximumY = Integer.parseInt(maximumYInput.next());
+            Scanner maximumYInput = new Scanner(System.in);
+            System.out.println("Enter the maximum Y Axis");
+            try {
+                maximumY = Integer.parseInt(maximumYInput.next());
+                if (maximumY == 0) {
+                    System.out.println("It cannot be 0");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("input is not an int value");
+
+            }
+
+            if (maximumX == 0 || maximumY == 0) {
+                System.out.println("You had wrong inputs. Please try again.");
+            } else {
+                break;
+            }
+        }
+
         System.out.println("WHERE WOULD YOU LIKE THE ROVER TO START?");
 
-        Scanner positionXInput = new Scanner(System.in);
-        System.out.println("Enter the starting X Position of the Rover");
-        positionX = Integer.parseInt(positionXInput.next());
+        while (true) {
+            boolean pass = false;
 
-        Scanner positionYInput = new Scanner(System.in);
-        System.out.println("Enter the X Position of the Rover");
-        positionY = Integer.parseInt(positionYInput.next());
+            Scanner positionXInput = new Scanner(System.in);
+            System.out.println("Enter the starting X Position of the Rover");
+            try {
 
-        boolean correct = true;
-        while (correct) {
+                positionX = Integer.parseInt(positionXInput.next());
+                if (positionX > maximumX) {
+                    System.out.println("It cannot be more than the size of the plateau");
+                } else {
+                    pass = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("input is not an int value");
+                pass = false;
+            }
+
+            Scanner positionYInput = new Scanner(System.in);
+            System.out.println("Enter the starting Y Position of the Rover");
+            try {
+
+                positionY = Integer.parseInt(positionYInput.next());
+                if (positionY > maximumY) {
+                    System.out.println("It cannot be more than the size of the plateau");
+                } else {
+                    pass = true;
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("input is not an int value");
+                pass = false;
+            }
+
+            if (positionX > maximumX || positionY > maximumY || pass == false) {
+                System.out.println("You entered wrong inputs. Please try again.");
+            } else {
+                break;
+            }
+        }
+
+        while (true) {
             Scanner compassPointInput = new Scanner(System.in);
             System.out.println("Enter the Direction the Rover is Facing: N for North, E for East, W for West, S for South");
             compassPoint = compassPointInput.next().toUpperCase();
-            correct = !compassPoint.matches("[a-zA-Z]{1}");
+
+            
+            
+            if (!compassPoint.matches("[a-zA-Z]{1}") || 
+                    !compassPoint.equals('N') ||
+                    !compassPoint.equals('E') ||
+                    !compassPoint.equals('W') ||
+                    !compassPoint.equals('S')) {
+                System.out.println(compassPoint);
+                System.out.println("Wrong Input. It cannot be more than 1 character. Please only choose between N,E,W,");
+            } else {
+                break;
+            }
         }
 
-        Scanner roverInstructionsInput = new Scanner(System.in);
-        System.out.println("Enter Your Instructions");
-        roverInstructions = roverInstructionsInput.next().toUpperCase();
+        boolean instructionsCorrect = true;
+        while (instructionsCorrect) {
+            Scanner roverInstructionsInput = new Scanner(System.in);
+            System.out.println("Enter Your Instructions: L for Left, R for Right, M for Move");
+            roverInstructions = roverInstructionsInput.next().toUpperCase();
 
+            roverInstructionsArray = roverInstructions.toCharArray();
+            for (int i = 0; i < roverInstructionsArray.length; i++) {
+
+                System.out.print(roverInstructionsArray[i]);
+
+                if (roverInstructionsArray[i] == 'L' || roverInstructionsArray[i] == 'R' || roverInstructionsArray[i] == 'M') {
+                    System.out.println("Good");
+                    if (i == roverInstructionsArray.length - 1) {
+                        break;
+                    }
+                } else {
+                    System.out.println("WRONG");
+                    instructionsCorrect = true;
+                    break;
+
+                }
+
+            }
+
+        }
         move();
 
     }
 
     public static void move() {
 
-        char[] roverInstructionsArray = roverInstructions.toCharArray();
-
-        System.out.println(roverInstructionsArray[0]);
-
-        for (int i = 0; i < roverInstructionsArray.length; i++) {
-
-            System.out.print(roverInstructionsArray[i]);
-
-            if (roverInstructionsArray[i] == 'L') {
-
-            }
-
-        }
-
+        //Starting X Position
+        //Starting Y Position
+        //Starting facing Direction
+        System.out.println("Plateau's Size: " + maximumX + ", " + maximumY);
+        System.out.println("Rover position: " + positionX + ", " + positionY + ", " + compassPoint);
+        System.out.println("Rover Instructions: " + roverInstructions);
     }
 }
