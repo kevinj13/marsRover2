@@ -120,17 +120,16 @@ public class MarsRover1301 {
             System.out.println("Enter the Direction the Rover is Facing: N for North, E for East, W for West, S for South");
             compassPoint = compassPointInput.next().toUpperCase();
 
-            
-            
-            if (!compassPoint.matches("[a-zA-Z]{1}") || 
-                    !compassPoint.equals('N') ||
-                    !compassPoint.equals('E') ||
-                    !compassPoint.equals('W') ||
-                    !compassPoint.equals('S')) {
+            if (compassPoint.matches("[a-zA-Z]{1}")
+                    && (compassPoint.equals("N")
+                    || compassPoint.equals("E")
+                    || compassPoint.equals("W")
+                    || compassPoint.equals("S"))) {
                 System.out.println(compassPoint);
-                System.out.println("Wrong Input. It cannot be more than 1 character. Please only choose between N,E,W,");
-            } else {
                 break;
+            } else {
+                System.out.println("Wrong Input. It cannot be more than 1 character. Please only choose between N,E,W,");
+
             }
         }
 
@@ -141,22 +140,25 @@ public class MarsRover1301 {
             roverInstructions = roverInstructionsInput.next().toUpperCase();
 
             roverInstructionsArray = roverInstructions.toCharArray();
+            System.out.println("LENGTH" + roverInstructionsArray.length);
+
             for (int i = 0; i < roverInstructionsArray.length; i++) {
 
                 System.out.print(roverInstructionsArray[i]);
 
                 if (roverInstructionsArray[i] == 'L' || roverInstructionsArray[i] == 'R' || roverInstructionsArray[i] == 'M') {
                     System.out.println("Good");
+                    System.out.println(i);
                     if (i == roverInstructionsArray.length - 1) {
-                        break;
+                        System.out.println("Finish");
+                        instructionsCorrect = false;
+
                     }
                 } else {
                     System.out.println("WRONG");
                     instructionsCorrect = true;
                     break;
-
                 }
-
             }
 
         }
