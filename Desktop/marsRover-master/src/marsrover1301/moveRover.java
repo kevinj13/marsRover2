@@ -5,7 +5,7 @@
  */
 package marsrover1301;
 
-import java.util.Scanner;
+import java.util.*;
 
 /**
  *
@@ -40,10 +40,48 @@ public class moveRover {
      * // * @param args the command line arguments
      *
      */
+    
+    public static void plateauSize() {
+        System.out.println("LET'S ESTABLISH THE SIZE OF THE PLATEAU:");
+
+        while (true) {
+            Scanner maximumXInput = new Scanner(System.in);
+            System.out.println("Enter the maximum X Axis");
+            try {
+
+                maximumX = Integer.parseInt(maximumXInput.next());
+                if (maximumX == 0) {
+                    System.out.println("It cannot be 0");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("input is not an int value");
+            }
+
+            Scanner maximumYInput = new Scanner(System.in);
+            System.out.println("Enter the maximum Y Axis");
+            try {
+                maximumY = Integer.parseInt(maximumYInput.next());
+                if (maximumY == 0) {
+                    System.out.println("It cannot be 0");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("input is not an int value");
+
+            }
+
+            if (maximumX == 0 || maximumY == 0) {
+                System.out.println("You had wrong inputs. Please try again.");
+            } else {
+                break;
+            }
+        }
+    }
+
+    
     public void roverInput() {
 
         // TODO code application logic here
-        System.out.println("WHERE WOULD YOU LIKE THE ROVER TO START?");
+        System.out.println("\n\nWHERE WOULD YOU LIKE THE ROVER TO START?");
 
         while (true) {
             boolean pass = false;
@@ -141,48 +179,13 @@ public class moveRover {
 
     }
 
-    public static void plateauSize() {
-        System.out.println("LET'S ESTABLISH THE SIZE OF THE PLATEAU:");
-
-        while (true) {
-            Scanner maximumXInput = new Scanner(System.in);
-            System.out.println("Enter the maximum X Axis");
-            try {
-
-                maximumX = Integer.parseInt(maximumXInput.next());
-                if (maximumX == 0) {
-                    System.out.println("It cannot be 0");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("input is not an int value");
-            }
-
-            Scanner maximumYInput = new Scanner(System.in);
-            System.out.println("Enter the maximum Y Axis");
-            try {
-                maximumY = Integer.parseInt(maximumYInput.next());
-                if (maximumY == 0) {
-                    System.out.println("It cannot be 0");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("input is not an int value");
-
-            }
-
-            if (maximumX == 0 || maximumY == 0) {
-                System.out.println("You had wrong inputs. Please try again.");
-            } else {
-                break;
-            }
-        }
-    }
-
+    
     public static void move() {
 
         //Starting X Position
         //Starting Y Position
         //Starting facing Direction
-        System.out.println("Plateau's Size: " + maximumX + ", " + maximumY);
+        System.out.println("\n\nPlateau's Size: " + maximumX + ", " + maximumY);
         System.out.println("Rover Current Position: " + positionX + ", " + positionY + ", " + compassPoint);
         System.out.println("Rover Instructions: " + roverInstructions + "\n\n\n");
 
@@ -303,13 +306,13 @@ public class moveRover {
     
     public String printStartingPosition() {
         String startingPosition = startingPositionX + " " + startingPositionY + " " + startingCompassPoint + "\n\n"
-                               + startingRoverInstructions;
+                               + startingRoverInstructions + "\n";
         return startingPosition;
     }
 
     
     public String printFinalPosition() {
-        String finalPosition = positionX + " " + positionY + " " + compassPoint;
+        String finalPosition = positionX + " " + positionY + " " + compassPoint + "\n";
         return finalPosition;
     }
 

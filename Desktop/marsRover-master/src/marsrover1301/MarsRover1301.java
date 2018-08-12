@@ -5,6 +5,8 @@
  */
 package marsrover1301;
 
+import java.util.*;
+
 /**
  *
  * @author kjsouribio
@@ -16,33 +18,36 @@ public class MarsRover1301 {
      * @param args the command line arguments
      *
      */
+    static String roverStartingPosition = "";
+    static String roverFinalPosition = "";
+
     public static void main(String[] args) {
 
         // TODO code application logic here
-        moveRover rover1 = new moveRover();
         moveRover.plateauSize();
-        rover1.roverInput();
-        moveRover.move();
-        String rover1startingPosition = rover1.printStartingPosition();
 
-        String rover1FinalPosition = rover1.printFinalPosition();
+        Scanner roverInput = new Scanner(System.in);
+        System.out.println("How many rovers would you like to add?");
+        int roverCount = Integer.parseInt(roverInput.next());
 
-        moveRover rover2 = new moveRover();
-        rover2.roverInput();
-        moveRover.move();
-        String rover2startingPosition = rover2.printStartingPosition();
-        String rover2FinalPosition = rover2.printFinalPosition();
+        moveRover[] rover = new moveRover[roverCount];
 
-        String plateauSize = rover1.printPlateauSize();
-        System.out.println("INPUT: \n");
-        System.out.println(plateauSize + "\n");
-        System.out.println(rover1startingPosition + "\n");
-        System.out.println(rover2startingPosition + "\n");
+        for (int i = 0; i < rover.length; i++) {
+            rover[i] = new moveRover();
+            System.out.println("\n\nRover #" + (i + 1) + ": ");
+            rover[i].roverInput();
+            moveRover.move();
+            roverStartingPosition += rover[i].printStartingPosition() + "\n";
+            roverFinalPosition += rover[i].printFinalPosition() + "\n";
+        }
 
-        System.out.println("OUTPUT \n");
-        System.out.println(rover1FinalPosition + "\n");
-        System.out.println(rover2FinalPosition + "\n");
+        String plateauSize = rover[1].printPlateauSize();
 
+        System.out.println("INPUT: \n\n"
+                + plateauSize + "\n\n"
+                + roverStartingPosition + "\n\n"
+                + "OUTPUT \n\n"
+                + roverFinalPosition + "\n\n");
         System.out.println("END.");
 
     }
