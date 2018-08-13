@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package marsrover1301;
+package marsrover1302;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import javax.swing.JFrame;
 
 /**
@@ -35,6 +36,10 @@ public class moveRover {
     static String roverInstructions;
 
     static char[] roverInstructionsArray;
+
+    static Plateau plateau;
+
+    static JFrame marsRoverFrame;
 
     /**
      *
@@ -75,6 +80,18 @@ public class moveRover {
                 break;
             }
         }
+
+        marsRoverFrame = new JFrame();
+        plateau = new Plateau();
+        marsRoverFrame.setSize(((maximumX + 1) * 100), (maximumY * 100) + 200);
+        marsRoverFrame.setTitle("Mars Rover");
+        marsRoverFrame.setResizable(true);
+        marsRoverFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        plateau.setBounds(0, 0, (maximumX + 1) * 100, (maximumY + 1) * 100);
+        marsRoverFrame.add(plateau);
+        plateau.getPlateauSize((maximumX + 1), (maximumY + 1));
+        marsRoverFrame.setVisible(true);
+
     }
 
     public void roverInput() {
@@ -124,7 +141,11 @@ public class moveRover {
             } else {
                 break;
             }
+
         }
+
+        plateau.getRoverPosition(startingPositionX, startingPositionY);
+//        marsRoverFrame.add(plateau);
 
         while (true) {
             Scanner compassPointInput = new Scanner(System.in);
@@ -137,6 +158,22 @@ public class moveRover {
                     || compassPoint.equals("W")
                     || compassPoint.equals("S"))) {
                 startingCompassPoint = compassPoint;
+               plateau.getRoverSize(100, 100, compassPoint);
+               switch (compassPoint) {
+                    case "N":
+                        plateau.getRoverSize(100, 50, "N");
+                        break;
+                    case "E":
+                        plateau.getRoverSize(50, 100, "E");
+                        break;
+                    case "S":
+                        plateau.getRoverSize(100, 50, "S");
+                        break;
+                    case "W":
+                        plateau.getRoverSize(50, 100, "W");
+                        break;        
+               }
+
                 break;
             } else {
                 System.out.println("Wrong Input. It cannot be more than 1 character. Please only choose between N,E,W,");
@@ -172,7 +209,7 @@ public class moveRover {
 
     }
 
-    public static void move() {
+    public static void move() throws InterruptedException {
 
         //Starting X Position
         //Starting Y Position
@@ -197,6 +234,8 @@ public class moveRover {
                             positionY -= 1;
                         }
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverPosition(positionX, positionY);
+                        TimeUnit.SECONDS.sleep(3);
                         break;
                     case "E":
                         System.out.println("Moving Towards East");
@@ -207,6 +246,9 @@ public class moveRover {
                             positionX -= 1;
                         }
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverPosition(positionX, positionY);
+                        TimeUnit.SECONDS.sleep(3);
+
                         break;
                     case "W":
                         System.out.println("Moving Towards West");
@@ -217,6 +259,9 @@ public class moveRover {
                             positionX += 1;
                         }
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverPosition(positionX, positionY);
+                        TimeUnit.SECONDS.sleep(3);
+
                         break;
                     case "S":
                         System.out.println("Moving Towards South");
@@ -227,6 +272,9 @@ public class moveRover {
                             positionY += 1;
                         }
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverPosition(positionX, positionY);
+                        TimeUnit.SECONDS.sleep(3);
+
                         break;
                     default:
                         break;
@@ -242,24 +290,33 @@ public class moveRover {
                         compassPoint = "W";
                         System.out.println("Current Compass Point: " + compassPoint);
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverSize(50, 100, "W");
+                        TimeUnit.SECONDS.sleep(3);
+
                         break;
                     case "E":
                         System.out.println("Turning Left to North");
                         compassPoint = "N";
                         System.out.println("Current Compass Point: " + compassPoint);
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverSize(100, 50, "N");
+                        TimeUnit.SECONDS.sleep(3);
                         break;
                     case "S":
                         System.out.println("Turning Left to East");
                         compassPoint = "E";
                         System.out.println("Current Compass Point: " + compassPoint);
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverSize(50, 100, "E");
+                        TimeUnit.SECONDS.sleep(3);
                         break;
                     case "W":
                         System.out.println("Turning Left to South");
                         compassPoint = "S";
                         System.out.println("Current Compass Point: " + compassPoint);
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverSize(100, 50, "S");
+                        TimeUnit.SECONDS.sleep(3);
                         break;
 
                     default:
@@ -277,24 +334,32 @@ public class moveRover {
                         compassPoint = "E";
                         System.out.println("Current Compass Point: " + compassPoint);
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverSize(50, 100, "E");
+                        TimeUnit.SECONDS.sleep(3);
                         break;
                     case "E":
                         System.out.println("Turning Left to South");
                         compassPoint = "S";
                         System.out.println("Current Compass Point: " + compassPoint);
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverSize(100, 50, "S");
+                        TimeUnit.SECONDS.sleep(3);
                         break;
                     case "S":
                         System.out.println("Turning Left to West");
                         compassPoint = "W";
                         System.out.println("Current Compass Point: " + compassPoint);
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverSize(50, 100, "W");
+                        TimeUnit.SECONDS.sleep(3);
                         break;
                     case "W":
                         System.out.println("Turning Left to North");
                         compassPoint = "N";
                         System.out.println("Current Compass Point: " + compassPoint);
                         System.out.println("Current Position: " + positionX + ", " + positionY + "\n");
+                        plateau.getRoverSize(100, 50, "N");
+                        TimeUnit.SECONDS.sleep(3);
                         break;
 
                     default:

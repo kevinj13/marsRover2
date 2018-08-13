@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package marsrover1301;
+package marsrover1302;
 
 import java.util.*;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author kjsouribio
  */
-public class MarsRover1301 {
+public class MarsRover1302 {
 
     /**
      *
@@ -22,9 +24,10 @@ public class MarsRover1301 {
     static String roverFinalPosition = "";
     static int roverCount;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         // TODO code application logic here
+        JOptionPane.showMessageDialog(null, "Welcome to the Nando's \nMars Rover Launch Program. \nClick 'OK' to continue", "Nando's Mars Rover Launch", JOptionPane.INFORMATION_MESSAGE);
         moveRover.plateauSize();
 
         while (true) {
