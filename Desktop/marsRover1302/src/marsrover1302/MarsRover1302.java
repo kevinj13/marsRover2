@@ -23,6 +23,8 @@ public class MarsRover1302 {
     static String roverStartingPosition = "";
     static String roverFinalPosition = "";
     static int roverCount;
+    static JOptionCancel cancel = new JOptionCancel();
+    static ErrorMessages error = new ErrorMessages();
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -31,18 +33,23 @@ public class MarsRover1302 {
         moveRover.plateauSize();
 
         while (true) {
-            Scanner roverInput = new Scanner(System.in);
-            System.out.println("How many rovers would you like to add?");
+//            Scanner roverInput = new Scanner(System.in);
+//            System.out.println("How many rovers would you like to add?");
+            String roverInput = JOptionPane.showInputDialog("How many rovers would you like to send?");
+            cancel.JOptionCancel(roverInput);
+
             try {
-                roverCount = Integer.parseInt(roverInput.next());
+                roverCount = Integer.parseInt(roverInput);
                 if (roverCount == 0 || roverCount < 0) {
-                    System.out.println("It cannot be 0 or less than 0.");
+//                    System.out.println("It cannot be 0 or less than 0.");
+                    error.zeroOrLessThanZero();
+
                 } else {
                     break;
                 }
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a number.");
-
+//                System.out.println("Please enter a number.");
+                error.pleaseEnterANumber();
             }
 
         }
@@ -51,7 +58,9 @@ public class MarsRover1302 {
 
         for (int i = 0; i < rover.length; i++) {
             rover[i] = new moveRover();
-            System.out.println("\n\nRover #" + (i + 1) + ": ");
+//            System.out.println("\n\nRover #" + (i + 1) + ": ");
+            JOptionPane.showMessageDialog(null, "Let's implement Rover #" + (i + 1), "\n\nRover #" + (i + 1), JOptionPane.INFORMATION_MESSAGE);
+
             rover[i].roverInput();
             moveRover.move();
             roverStartingPosition += rover[i].printStartingPosition() + "\n";
@@ -60,12 +69,18 @@ public class MarsRover1302 {
 
         String plateauSize = rover[0].printPlateauSize();
 
-        System.out.println("INPUT: \n\n"
+//        System.out.println("INPUT: \n\n"
+//                + plateauSize + "\n\n"
+//                + roverStartingPosition + "\n\n"
+//                + "OUTPUT \n\n"
+//                + roverFinalPosition + "\n\n");
+        JOptionPane.showMessageDialog(null, "INPUT: \n\n"
                 + plateauSize + "\n\n"
                 + roverStartingPosition + "\n\n"
                 + "OUTPUT \n\n"
-                + roverFinalPosition + "\n\n");
-        System.out.println("END.");
+                + roverFinalPosition + "\n\n", "RESULTS", JOptionPane.INFORMATION_MESSAGE);
+
+        JOptionPane.showMessageDialog(null, "Ground Control to Major Tom. \nIt's a success!", "SUCCESS", JOptionPane.INFORMATION_MESSAGE);
 
     }
 }
