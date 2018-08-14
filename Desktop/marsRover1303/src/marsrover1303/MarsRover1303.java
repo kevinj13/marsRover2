@@ -21,6 +21,7 @@ public class MarsRover1303 {
     static String roverStartingPosition = "";
     static String roverFinalPosition = "";
     static int roverCount;
+    
     static JOptionCancel cancel = new JOptionCancel();
     static ErrorMessages error = new ErrorMessages();
 

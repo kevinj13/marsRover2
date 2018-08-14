@@ -22,33 +22,25 @@ public class moveRover extends MarsRover1303 {
     //static variables used for easier changes with the GUI
     
     static int maximumX = 0;
-
     static int maximumY = 0;
-
+    
     static int startingPositionX = 0;
-
     static int startingPositionY = 0;
-
+    
     static String startingCompassPoint = "N";
-
     static String startingRoverInstructions = "LML";
-
+    
     static int positionX = 0;
-
     static int positionY = 0;
-
+    
     static String compassPoint = "N";
-
+    
     static String roverInstructions = "LML";
-
     static char[] roverInstructionsArray;
-
+    
     static Plateau plateau;
-
     static JFrame marsRoverFrame;
-
     static JLabel roverPositionMessage;
-
     static String roverPositionMessageString = "";
 
     /**
@@ -94,7 +86,6 @@ public class moveRover extends MarsRover1303 {
             }
 
             if (maximumX == 0 || maximumY == 0) {
-//                System.out.println("You had wrong inputs. Please try again.");
                 JOptionPane.showMessageDialog(null, "Let's start again.", "Warning", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
